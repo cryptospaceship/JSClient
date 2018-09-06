@@ -271,8 +271,21 @@ class CSSGame {
         return (movemmentPerMode[mode] >= d);
     }
 
-    static getFleetType(_attack, _defense, _distance, _load)
-    {
+    static getRangeByMode(mode) {
+        let movemmentPerMode = [4,6,3,0];
+        return movemmentPerMode[mode];
+    }
+
+    static checkCannonRange(from, to, level) {
+        let d = this.getDistance(from,to);
+        return (level > 0 && (d == 1 || (d == 2 && level == 4)));
+    }
+
+    static energyToFire(energy) {
+        return (energy >= 2000000)
+    }
+
+    static getFleetType(_attack, _defense, _distance, _load) {
         var fleetType = 0;
         var ftstr = ["Error", "Predator", "Keeper", "Interceptor", "Galleon", "Hybrid"];
         var _d = _distance * 6;
@@ -336,9 +349,9 @@ class CSSGame {
         var _typeCost = [0,1200,2520,5292,12171,26168,56263,120965,260076,559164,1202204];
         var r = {};
         if (_type === "energy" || _type == 0) {
-            r.energy = _typeCost[_level] / 2;
-            r.graphene = _typeCost[_level];
-            r.metals = _typeCost[_level];
+            r.energy = _typeCost[_level];
+            r.graphene = _typeCost[_level]*2;
+            r.metals = _typeCost[_level]*2;
         }
         else if (_type === "graphene" || _type == 1) {
             r.energy = _typeCost[_level];
