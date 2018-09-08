@@ -205,7 +205,7 @@ class CSSGame {
         ret.x = result[1].toNumber();
         ret.y = result[2].toNumber();
         ret.mode = result[3].toNumber();
-        ret.damage = result[4].toNumber();
+        ret.inPort = result[4];
         return ret;
     }
 
@@ -224,8 +224,7 @@ class CSSGame {
         ret.countdownToFleet = result[6].toNumber();
         ret.countdownToMode = result[7].toNumber();
         ret.countdownToFireCannon = result[8].toNumber();
-        ret.resourceUpgrading = result[9].toNumber();
-        ret.buildingUpgrading = result[10].toNumber();
+        ret.damage = result[9].toNumber();
         return ret;
     }
 
@@ -279,6 +278,16 @@ class CSSGame {
     static checkCannonRange(from, to, level) {
         let d = this.getDistance(from,to);
         return (level > 0 && (d == 1 || (d == 2 && level == 4)));
+    }
+
+    static getCannonDamage(from, to, level) {
+        let d = this.getDistance(from,to);
+        if (this.checkCannonRange(from,to,level)) {
+            if (d == 2)
+                return 10;
+            else
+                return 20;
+        }
     }
 
     static energyToFire(energy) {
