@@ -80,9 +80,9 @@ class CSSGame {
         this.contract.buildFleet(_ship,size,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
     }
 
-    destroyFleet(_ship,callback) {
-        this.contract.destroyFleet(_ship,size,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
-    } 
+    disassembleFleet(_ship,callback) {
+        this.contract.disassembleFleet(_ship,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
+    }
 
     // Movemment Functions
     moveTo(_ship, x, y, callback) {
