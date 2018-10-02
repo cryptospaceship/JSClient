@@ -62,8 +62,8 @@ class CSSGame {
     attackShip(ship, to, callback) {
         this.contract.attackShip(ship,to,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
     }
-    fireCannon(ship,to,callback){
-        this.contract.fireCannon(ship,to,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
+    fireCannon(ship,to,target,callback){
+        this.contract.fireCannon(ship,to,target,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
     }
 
     // Send Resources
@@ -80,8 +80,8 @@ class CSSGame {
         this.contract.buildFleet(_ship,size,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
     }
 
-    disassembleFleet(_ship,callback) {
-        this.contract.disassembleFleet(_ship,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
+    disassembleFleet(_ship,size,callback) {
+        this.contract.disassembleFleet(_ship,size,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
     }
 
     // Movemment Functions
@@ -280,6 +280,11 @@ class CSSGame {
         return (level > 0 && (d == 1 || (d == 2 && level == 4)));
     }
 
+    static getShipStructures() {
+        let ret = ["Ship", "Panel-1", "Panel-2", "Panel-3", "Panel-4", "Panel-5","Panel-6","Graphene Collector", "Metal Weaver", "Warehouse", "Hangar", "W.O.P.R"];
+        return ret;
+    }
+
     static getCannonDamage(from, to, level) {
         let d = this.getDistance(from,to);
         if (this.checkCannonRange(from,to,level)) {
@@ -290,9 +295,28 @@ class CSSGame {
         }
     }
 
-    static energyToFire(energy) {
-        return (energy >= 2000000)
+    static energyToFire(energy, accuracy) {
+        if (accuracy)
+            return (energy >= 3000000);
+        return (energy >= 2000000);
     }
+
+    static getPointsByHangarLevel(hangarLevel) {
+        let points = [0,60,70,85,100];
+        return points[hangarLevel];
+    }
+
+
+    static calcReturnResourcesFromFleet(_hangarLevel,_attack, _defense, _distance, _load,_size)
+    {
+        let value = this.getFleetCost(_attack, _defense, _distance, _load);
+        let p = (hangarLevel-1) * 10;
+        value.e = (value.e * _size) * p / 100;
+        value.g = (value.g * _size) * p / 100;
+        value.m = (value.m * _size) * p / 100;
+        return value;
+    }
+
 
     static getFleetType(_attack, _defense, _distance, _load) {
         var fleetType = 0;
