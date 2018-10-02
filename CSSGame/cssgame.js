@@ -259,7 +259,7 @@ class CSSGame {
             range = range + parseInt(range/2);
         }
         if (mode == 3) {
-            range = 0;
+            range = parseInt(range/2);
         }
         return (range >= d);
     }
