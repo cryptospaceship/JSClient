@@ -140,6 +140,19 @@ class CSSGame {
         });
     */
 
+    getGame2(callback) {
+        this.contract.getGame2(callback);
+    }
+
+    getGame2Result(result) {
+        var ret = {};
+        ret.gameLaunch = result[2].toNumber();
+        ret.endBlock = result[4].toNumber();
+        ret.reward = result[5].toNumber();
+        ret.candidate = result[6];
+        return ret;
+    }
+
     getPort(callback) {
         this.contract.getPort(callback);
     }
