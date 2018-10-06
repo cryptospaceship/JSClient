@@ -311,7 +311,7 @@ class CSSGame {
     {
         let value = this.getFleetCost(_attack, _defense, _distance, _load);
         let p = (hangarLevel-1) * 10;
-        value.e = (value.e * _size) * p / 100;
+        value.e = 0;
         value.g = (value.g * _size) * p / 100;
         value.m = (value.m * _size) * p / 100;
         return value;
