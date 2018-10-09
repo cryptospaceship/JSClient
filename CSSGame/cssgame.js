@@ -59,9 +59,13 @@ class CSSGame {
     attackPort(ship, port,callback) {
         this.contract.attackPort(ship,port,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
     }
-    attackShip(ship, to, callback) {
-        this.contract.attackShip(ship,to,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
+
+
+    attackShip(ship, to, battle,callback) {
+        this.contract.attackShip(ship,to,battle,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
     }
+
+
     fireCannon(ship,to,target,callback){
         this.contract.fireCannon(ship,to,target,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
     }
