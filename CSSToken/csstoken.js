@@ -15,6 +15,10 @@ class CSSToken {
         });
     }
 
+    unsetGame(ship,callback) {
+        this.contract.unsetGame(ship,{from:w3.eth.accounts[0],gasPrice:1000000000},callback);
+    }
+
     getShipsByOwner(address,callback) {
         this.contract.getShipsByOwner(address,callback);
     }
